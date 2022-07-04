@@ -1,0 +1,50 @@
+Source page --- >>>>  https://leetcode.com/problems/find-bottom-left-tree-value/
+
+
+class Solution {
+    public static int height(TreeNode node) {
+        
+    if(node == null){
+      return -1;
+    }
+
+    int lh = height(node.left);
+    int rh = height(node.right);
+
+    return Math.max(lh , rh) + 1 ;
+    }
+    public int findBottomLeftValue(TreeNode root) {
+        int height = height(root);
+        
+        int retval = 0;
+      
+          if(root == null){
+              return retval ;
+          }
+          
+          Queue<TreeNode> mq = new LinkedList<>();
+          
+          mq.add(root);
+          int l = 0;
+          while(mq.size() > 0){
+              int ls = mq.size();
+              for(int i = 0 ; i < ls ; i++){
+                  TreeNode rn = mq.remove();
+                  
+                  if(i == 0 && l == height){
+                      retval = rn.val;
+                  }
+                  
+                  if(rn.left != null){
+                      mq.add(rn.left);
+                  }
+                  if(rn.right != null){
+                      mq.add(rn.right);
+                  }
+              }
+              l++;
+          }
+          
+          return retval;
+    }
+}
