@@ -1,0 +1,27 @@
+
+// page source ---->>>> https://leetcode.com/problems/reverse-integer/
+
+
+class Solution {
+    public int reverse(int x) {
+        int mul = 1;
+        if(x < 0){
+            mul = -1;
+            x = x * mul;
+        }
+        int res = 0;
+        
+        while(x > 0){
+            if(res * mul > Integer.MAX_VALUE / 10 || res * mul < Integer.MIN_VALUE / 10){
+                return 0;
+            }
+            
+            int r = x % 10;
+            res = res * 10 + r;
+            x = x / 10;
+            //mul *= 10;
+            
+        }
+        return (int)(mul * res);
+    }
+}
