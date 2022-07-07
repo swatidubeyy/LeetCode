@@ -1,0 +1,22 @@
+//source page -------->>>>>>>>>> https://leetcode.com/problems/palindrome-number/
+
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0){
+            return false;
+        }
+        int rev = 0 , l = x;
+        while(l > 0){
+            int r = l % 10;
+            rev = rev * 10 + r;
+            l = l / 10;
+        }
+        //System.out.print(rev);
+        
+        if(rev == x){
+            return true;
+        }
+        return false;
+    }
+}
