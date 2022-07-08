@@ -1,0 +1,50 @@
+// page source ---->>>> https://leetcode.com/problems/roman-to-integer/
+
+
+
+class Solution {
+    public int romanToInt(String s) {
+        int narr[] = new int[s.length()];
+        
+        for(int i = 0 ; i < s.length() ; i++){
+            switch(s.charAt(i)){
+                case 'I':
+                    narr[i] = 1;
+                    break;
+                    
+                case 'V':
+                    narr[i] = 5;
+                    break;
+                    
+                case 'X':
+                    narr[i] = 10;
+                    break;
+                    
+                case 'L':
+                    narr[i] = 50;
+                    break;
+                    
+                case 'C':
+                    narr[i] = 100;
+                    break;
+                    
+                case 'D':
+                    narr[i] = 500;
+                    break;
+                    
+                case 'M':
+                    narr[i] = 1000;
+                    break;
+            }
+        }
+        int sum = 0;
+        for(int i = 1 ; i < narr.length ; i++){
+            if(narr[i-1] < narr[i]){
+                sum -= narr[i-1];
+            }else{
+                sum += narr[i-1];
+            }
+        }
+        return sum + narr[narr.length - 1];
+    }
+}
