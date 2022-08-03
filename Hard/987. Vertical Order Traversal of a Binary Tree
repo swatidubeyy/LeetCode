@@ -1,0 +1,70 @@
+//Page source --- >>> https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+
+
+
+class Solution {
+    static class Pair implements Comparable<Pair>{
+        TreeNode root;
+        int h;
+        int v;
+        
+        Pair(TreeNode root , int h , int v){
+            this.root = root;
+            this.h = h;
+            this.v = v;
+        }
+        
+        public int compareTo(Pair other){
+            if(this.v == other.v){
+                return this.root.val - other.root.val;   
+            }else{
+                return this.v - other.v;   
+            }
+        }
+    }
+    public List<List<Integer>> verticalTraversal(TreeNode node) {
+        Queue<Pair> mq = new LinkedList<>();
+        HashMap<Integer , PriorityQueue> hm = new HashMap<>();
+        mq.add(new Pair(node , 0 , 1));
+        int ll = 0;
+        int rl = 0;
+        
+        while(mq.size() > 0){
+            Pair temp = mq.remove();
+            
+            if(ll > temp.h){
+                ll = temp.h;
+            }
+            if(rl < temp.h){
+                rl = temp.h;
+            }
+            if(hm.containsKey(temp.h) == false){
+                hm.put(temp.h , new PriorityQueue<>()); 
+                hm.get(temp.h).add(temp);
+            }else{
+                hm.get(temp.h).add(temp);    
+            }              
+            
+            if(temp.root.left != null){
+                mq.add(new Pair(temp.root.left , temp.h - 1 , temp.v + 1));
+            }
+            
+            if(temp.root.right != null){
+                mq.add(new Pair(temp.root.right , temp.h + 1 , temp.v + 1));
+            }
+        }
+        int idx = 0;
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        for(int i = ll ; i <= rl ; i++){
+            ArrayList<Integer> al = new ArrayList<>();
+            PriorityQueue<Pair> pq = hm.get(i);
+            while(pq.size() > 0){
+                al.add(pq.remove().root.val);    
+            }
+            res.add(al);
+            idx++;      
+        }
+        
+        return res;
+    }
+}
