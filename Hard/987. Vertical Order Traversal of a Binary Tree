@@ -4,67 +4,67 @@
 
 class Solution {
     static class Pair implements Comparable<Pair>{
-        TreeNode root;
-        int h;
-        int v;
+        TreeNode node;
+        int w;
+        int d;
         
-        Pair(TreeNode root , int h , int v){
-            this.root = root;
-            this.h = h;
-            this.v = v;
+        Pair(TreeNode node , int w , int d){
+            this.node = node;
+            this.w = w;
+            this.d = d;
         }
-        
         public int compareTo(Pair other){
-            if(this.v == other.v){
-                return this.root.val - other.root.val;   
+            if(this.d == other.d){
+                return this.node.val - other.node.val;   
             }else{
-                return this.v - other.v;   
+                return this.d - other.d;
             }
         }
     }
-    public List<List<Integer>> verticalTraversal(TreeNode node) {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
         Queue<Pair> mq = new LinkedList<>();
         HashMap<Integer , PriorityQueue> hm = new HashMap<>();
-        mq.add(new Pair(node , 0 , 1));
-        int ll = 0;
-        int rl = 0;
-        
+        mq.add(new Pair(root , 0 , 1));
+        int lw = 0 , rw = 0;
         while(mq.size() > 0){
             Pair temp = mq.remove();
             
-            if(ll > temp.h){
-                ll = temp.h;
+            if(temp.w < lw){
+                lw = temp.w;
             }
-            if(rl < temp.h){
-                rl = temp.h;
+            
+            if(temp.w > rw){
+                rw = temp.w;
             }
-            if(hm.containsKey(temp.h) == false){
-                hm.put(temp.h , new PriorityQueue<>()); 
-                hm.get(temp.h).add(temp);
+            
+            if(hm.containsKey(temp.w) == false){
+                hm.put(temp.w , new PriorityQueue<>());
+                hm.get(temp.w).add(temp);
             }else{
-                hm.get(temp.h).add(temp);    
-            }              
-            
-            if(temp.root.left != null){
-                mq.add(new Pair(temp.root.left , temp.h - 1 , temp.v + 1));
+                hm.get(temp.w).add(temp);    
             }
             
-            if(temp.root.right != null){
-                mq.add(new Pair(temp.root.right , temp.h + 1 , temp.v + 1));
+            if(temp.node.left != null){
+                mq.add(new Pair(temp.node.left , temp.w-1 , temp.d+1));
             }
-        }
-        int idx = 0;
-        ArrayList<List<Integer>> res = new ArrayList<>();
-        for(int i = ll ; i <= rl ; i++){
-            ArrayList<Integer> al = new ArrayList<>();
-            PriorityQueue<Pair> pq = hm.get(i);
-            while(pq.size() > 0){
-                al.add(pq.remove().root.val);    
+            
+            if(temp.node.right != null){
+                mq.add(new Pair(temp.node.right , temp.w+1 , temp.d+1));
             }
-            res.add(al);
-            idx++;      
         }
         
-        return res;
+        int idx = 0;
+        ArrayList<List<Integer>> al= new ArrayList<>();
+        
+        for(int i = lw ; i <= rw ; i++){
+            ArrayList<Integer> list = new ArrayList<>();
+            PriorityQueue<Pair> pq = hm.get(i);
+            while(pq.size() > 0){
+                list.add(pq.remove().node.val);    
+            }   
+            al.add(list);
+            idx++;
+        }
+        return al;
     }
 }
