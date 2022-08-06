@@ -1,0 +1,34 @@
+// Page source ----->>>>>> https://leetcode.com/problems/binary-tree-coloring-game/
+
+
+class Solution {
+    int leftSize = 0;
+    int rightSize = 0;
+    public int size(TreeNode root , int x){
+        if(root == null){
+            return 0;
+        }
+        int ls = size(root.left , x);
+        int rs = size(root.right , x);
+        
+        if(root.val == x){
+            leftSize = ls;
+            rightSize = rs;
+        }
+        int ts = ls+rs+1;
+        return ts;
+    }
+    public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
+        size(root , x);
+        
+        int restSize = n - (leftSize + rightSize + 1);
+        int max = Math.max(restSize , Math.max(leftSize , rightSize));
+        
+        int rest = n-max;
+        if(max > rest){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
