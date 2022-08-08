@@ -1,0 +1,30 @@
+//page source --->>> https://leetcode.com/problems/binary-tree-inorder-traversal/submissions/
+
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        TreeNode curr = root;
+        while(curr != null){
+            if(curr.left == null){
+                list.add(curr.val);
+                curr = curr.right;
+            }else{
+                TreeNode iop = curr.left;
+                while(iop.right != null && iop.right != curr){
+                    iop = iop.right;
+                }
+                if(iop.right == null){
+                    iop.right = curr;
+                    curr = curr.left;
+                }
+                if(iop.right == curr){
+                    iop.right = null;
+                    list.add(curr.val);
+                    curr = curr.right;
+                }
+            }
+        }
+        return list;
+    }
+}
