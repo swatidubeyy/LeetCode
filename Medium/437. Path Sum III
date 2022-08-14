@@ -33,3 +33,49 @@ class Solution {
         countTarget(node.right , csum+node.val , targetSum);
     }
 }
+
+
+
+
+// alternate method but having some issues
+
+
+class Solution {
+    int count = 0;
+    public int pathSum(TreeNode root, int targetSum) {
+        if(targetSum == 0){
+            return 0;
+        }
+        if(root == null){
+            return 0;
+        }
+        HashMap<Integer , Integer> map = new HashMap<>();
+        map.put(0 , 1);
+        CountPathSum(root , root.val , targetSum , map);
+        return count;
+    }
+    
+    public void CountPathSum(TreeNode node, int sum, int tar, HashMap<Integer , Integer> map){
+        if(map.containsKey(sum - tar)){
+            count = count + map.get(sum-tar);
+        }
+        
+        if(map.containsKey(sum)){
+            map.put(sum , map.get(sum)+1);
+        }else{
+            map.put(sum , 1);
+        }
+        
+        if(node.left != null)
+            CountPathSum(node.left , sum + node.left.val , tar , map);
+        
+        if(node.right != null)
+            CountPathSum(node.right , sum + node.right.val , tar , map);
+        
+        if(map.get(sum) == 1){
+            map.remove(sum);
+        }else{
+            map.put(sum , map.get(sum) - 1);
+        }
+    }
+}
