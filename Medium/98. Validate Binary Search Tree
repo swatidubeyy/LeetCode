@@ -1,0 +1,28 @@
+//page source ---->>>>>>> https://leetcode.com/problems/validate-binary-search-tree/
+
+
+class Solution {
+    class Pair{
+        boolean isBST = true;
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+    }
+    public boolean isValidBST(TreeNode root) {
+        Pair ans = helper(root);
+        return ans.isBST;
+    }
+    public Pair helper(TreeNode node){
+        if(node == null){
+            return new Pair();
+        }
+        Pair lp = helper(node.left);
+        Pair rp = helper(node.right);
+        
+        Pair mp = new Pair();
+        mp.min = Math.min(node.val , Math.min(lp.min , rp.min));
+        mp.max = Math.max(node.val , Math.max(lp.max , rp.max));
+        mp.isBST = lp.isBST && rp.isBST && lp.max < node.val && rp.min > node.val;
+        
+        return mp;
+    }
+}
