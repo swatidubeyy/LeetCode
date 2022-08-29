@@ -1,0 +1,36 @@
+//page source --->>> https://leetcode.com/problems/binary-tree-cameras/
+
+
+class Solution {
+    int countCam = 0;
+    final int monitered = 1;
+    final int not_monitered = 2;
+    final int camera = 3;
+    
+    public int minCameraCover(TreeNode root) {
+        
+        int val = helper(root);
+        if(val == not_monitered){
+            countCam++;
+        }
+        
+        return countCam;
+    }
+    
+    public int helper(TreeNode node){
+        if(node == null){
+            return monitered;
+        }
+        int ln = helper(node.left);
+        int rn = helper(node.right);
+        
+        if(ln == not_monitered || rn == not_monitered){
+            countCam++;
+            return camera;
+        }else if(ln == camera || rn == camera){
+            return monitered;
+        }else{
+            return not_monitered;
+        }
+    }
+}
