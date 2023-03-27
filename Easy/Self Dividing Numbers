@@ -1,0 +1,44 @@
+class Solution {
+
+    public boolean isDevided(int n){
+
+        int count = 0;
+        int num = n;
+        while(num > 0){
+            count++;
+            num = num / 10;
+        }
+
+        int flag = 0;
+        int no = n;
+        while(no > 0){
+            int r = no % 10;
+            if(r > 0){
+                if(n % r == 0){
+                    flag++;
+                }
+            }
+            no = no / 10;
+        }
+        if(count == flag){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> res = new ArrayList<Integer>();
+
+        for(int i = left ; i <= right ; i++){
+            if(i <= 9){
+                res.add(i);
+            }else{
+                if(isDevided(i) == true){
+                    res.add(i);
+                }
+            }
+        }
+        return res;
+    }
+}
