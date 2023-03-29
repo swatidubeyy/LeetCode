@@ -1,0 +1,22 @@
+class Solution {
+
+    public int isSingle(int n, int[] nums) {
+        int count = 0;
+        for(int i = 0 ; i < nums.length ; i++){
+           if(n == nums[i]){
+               count++;
+           }
+        }
+        return count;
+    }
+
+    public int singleNumber(int[] nums) {
+        for(int i = 0 ; i < nums.length ; i++){
+            int count = isSingle(nums[i], nums);
+            if(count == 1){
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+}
