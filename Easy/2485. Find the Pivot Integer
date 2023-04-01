@@ -1,3 +1,7 @@
+// JAVA solution ---->>>>>>
+
+
+
 class Solution {
     public int getSum(int i, int j){
         int sum = 0;
@@ -18,3 +22,102 @@ class Solution {
         return -1;
     }
 }
+
+
+// c++ solution ---->>>>>>
+
+
+class Solution {
+public:
+    int getSum(int i, int j){
+    int sum = 0;
+        for(; i <= j; i++){
+            sum = sum + i;
+        }
+        return sum;
+}
+    int pivotInteger(int n){
+    for(int i = 1 ; i <= n ; i++){
+        int gfh = getSum(1, i);
+        int gsh = getSum(i, n);
+        if(gfh == gsh){
+            return i;
+        }
+    }
+    return -1;
+}
+};
+
+
+
+
+// c# solution ---->>>>>>
+
+public class Solution {
+
+    public int getSum(int i, int j){
+         int sum = 0;
+        for(; i <= j; i++){
+            sum = sum + i;
+        }
+        return sum;
+    }
+    public int PivotInteger(int n) {
+        for(int i = 1 ; i <= n ; i++){
+        int gfh = getSum(1, i);
+        int gsh = getSum(i, n);
+        if(gfh == gsh){
+            return i;
+        }
+    }
+    return -1;
+    }
+}
+
+// c solution ---->>>>>>
+
+int getSum(int i, int j){
+    int sum = 0;
+        for(; i <= j; i++){
+            sum = sum + i;
+        }
+        return sum;
+}
+int pivotInteger(int n){
+    for(int i = 1 ; i <= n ; i++){
+        int gfh = getSum(1, i);
+        int gsh = getSum(i, n);
+        if(gfh == gsh){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+
+// JavaScript solution ---->>>>>>
+
+
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var getSum = function(i,j) {
+    let sum = 0;
+    for(; i <= j; i++){
+        sum = sum + i;
+    }
+    return sum;
+}
+var pivotInteger = function(n) {
+    for(let i = 1 ; i <= n ; i++){
+        let gfh = getSum(1, i);
+        let gsh = getSum(i, n);
+        if(gfh == gsh){
+            return i;
+        }
+    }
+    return -1;
+};
