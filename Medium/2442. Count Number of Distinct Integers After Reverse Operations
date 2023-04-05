@@ -1,0 +1,94 @@
+
+java script solution using hash set ----->>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+class Solution {
+    public int getReverse(int n){
+        int rev = 0;
+        while(n > 0){
+            int r = n % 10;
+            rev = rev * 10 + r;
+            n = n / 10;
+        }
+        return rev;
+    }
+    public int countDistinctIntegers(int[] nums) {
+        HashSet<Integer> hs = new HashSet<>();
+        for(int i = 0 ; i < nums.length ; i++){
+            hs.add(nums[i]);
+            hs.add(getReverse(nums[i]));
+        }
+        return hs.size();
+    }
+}
+
+
+
+java script solution using hash map ----->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+class Solution {
+    public int getReverse(int n){
+        int rev = 0;
+        while(n > 0){
+            int r = n % 10;
+            rev = rev * 10 + r;
+            n = n / 10;
+        }
+        return rev;
+    }
+    public int countDistinctIntegers(int[] nums) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int newArray[] = new int[nums.length];
+        for(int i = 0 ; i < nums.length ; i++){
+            int revrsd = getReverse(nums[i]);
+            newArray[i] = revrsd;
+        }
+        for(int i = 0 ; i < nums.length ; i++){
+           if(hm.containsKey(nums[i])){
+               hm.put(nums[i] ,hm.get(nums[i])+1);
+           }else{
+               hm.put(nums[i] ,1);
+           }
+        }
+        for(int i = 0 ; i < newArray.length ; i++){
+           if(hm.containsKey(newArray[i])){
+               hm.put(newArray[i] ,hm.get(newArray[i])+1);
+           }else{
+               hm.put(newArray[i] ,1);
+           }
+        }
+        return hm.size();
+    }
+}
+
+
+
+
+java script solution ----->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countDistinctIntegers = function(nums) {
+    const mySet = new Set();
+    for(let i = 0 ; i < nums.length ; i++){
+        mySet.add(nums[i]);
+        mySet.add(getReverse(nums[i]));
+    }
+    return mySet.size;
+};
+
+var getReverse = function(num){
+    let rev = 0;
+    while(num > 0){
+        let r = parseInt(num % 10);
+        rev = rev * 10 + r;
+        num = parseInt(num / 10);
+
+    }
+    return rev;
+}
