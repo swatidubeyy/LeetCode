@@ -1,0 +1,28 @@
+please upvoteclass Solution {
+    public int getLeftSum(int arr[], int idx){
+        int sum = 0;
+        for(int i = 0 ; i < idx ; i++){
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    public int getRightSum(int arr[], int idx){
+        int sum = 0;
+        for(int i = idx+1 ; i < arr.length ; i++){
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    public int pivotIndex(int[] nums) {
+        for(int i = 0 ; i < nums.length ; i++){
+            int leftSum = getLeftSum(nums, i);
+            int rightSum = getRightSum(nums, i);
+            if(leftSum == rightSum){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
