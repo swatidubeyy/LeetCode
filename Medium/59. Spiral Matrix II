@@ -1,0 +1,35 @@
+class Solution {
+
+    public int[][] generateMatrix(int n) {
+        int mat[][] = getSpiralMatrix(n);
+        return mat;
+    }
+
+    public int[][] getSpiralMatrix(int n){
+        int matrix[][] = new int[n][n];
+        int count = 1, minr = 0, minc = 0, maxr = n-1, maxc = n-1, cond = n*n + 1; 
+        while(count < cond){
+            for(int i = minc ; i <= maxc && count < cond ; i++){
+                matrix[minr][i] = count;
+                count++;
+            }
+            minr++;         
+            for(int i = minr ; i <= maxr && count < cond ; i++){
+                matrix[i][maxc] = count;
+                count++;
+            }
+            maxc--;
+            for(int i = maxc ; i >= minc && count < cond ; i--){
+                matrix[maxr][i] = count;
+                count++;
+            }
+            maxr--;
+            for(int i = maxr ; i >= minr && count < cond ; i--){
+                matrix[i][minc] = count;
+                count++;
+            }
+            minc++;
+        }
+        return matrix;
+    }
+}
