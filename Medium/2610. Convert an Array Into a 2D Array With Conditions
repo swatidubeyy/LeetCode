@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> findMatrix(int[] nums) {
+        List<List<Integer>> finList = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+
+        for(int i =  0 ; i < nums.length ; i++){
+            tempList.add(nums[i]);
+        }
+        while(tempList.size() > 0){
+            List<Integer> tempList2 = new ArrayList<>();
+            for(int i = tempList.size() - 1 ; i >= 0 ; i--){
+                if(tempList2.contains(tempList.get(i)) == false){
+                    tempList2.add(tempList.get(i));
+                    tempList.remove(tempList.get(i));
+                }
+            }
+            finList.add(tempList2);
+        }
+        
+        return finList;
+    }
+}
