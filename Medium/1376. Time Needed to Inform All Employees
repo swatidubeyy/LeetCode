@@ -1,0 +1,39 @@
+class Solution {
+    int max_minutes = 0;
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        Map<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        for(int i = 0 ; i < n ; i++){
+            if(manager[i] == -1){
+                continue;
+            }
+            if(!hm.containsKey(manager[i])){
+                ArrayList<Integer> list = new ArrayList<>();
+                list.add(i);
+                hm.put(manager[i], list);
+            }else{
+                ArrayList<Integer> list = hm.get(manager[i]);
+                list.add(i);
+                hm.put(manager[i], list);
+            }
+        }
+        helperFun(headID, hm, informTime, 0);
+        return max_minutes;
+    }
+
+    public void helperFun(int headID, Map<Integer, ArrayList<Integer>> hm, int []informTime, int t){
+        if(informTime[headID] == 0){
+            return;
+        }
+        t = t + informTime[headID];
+
+        ArrayList<Integer> list = hm.get(headID);
+        int s  = list.size();
+
+        for(int i = 0 ; i < s ; i++){
+            helperFun(list.get(i), hm, informTime, t);
+            if(t > max_minutes){
+                max_minutes = t;
+            }
+        }
+    }
+}
